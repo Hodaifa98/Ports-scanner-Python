@@ -6,6 +6,7 @@ from queue import Queue
 target = "localhost"
 queue = Queue()
 open_ports = []
+number_of_threads = 500
 
 def portScan(port):
     try:
@@ -29,20 +30,22 @@ def worker():
             print(F"Port: {port} is open.")
             open_ports.append(port)
 
-port_list = range(3290, 3320)
-fill_queue_with_list(port_list)
 
-thread_list = []
+if __name__ == "__main__":
+    port_list = range(1, 3320)
+    fill_queue_with_list(port_list)
 
-for t in range(10):
-    thread = threading.Thread(target=worker)
-    thread_list.append(thread)
+    thread_list = []
 
-for thread in thread_list:
-    thread.start()
+    for t in range(number_of_threads):
+        thread = threading.Thread(target=worker)
+        thread_list.append(thread)
 
-for thread in thread_list:
-    #Wait until the thread is done.
-    thread.join()
+    for thread in thread_list:
+        thread.start()
 
-print("Open ports are: ", open_ports)
+    for thread in thread_list:
+        #Wait until the thread is done.
+        thread.join()
+
+    print("Open ports are: ", open_ports)
