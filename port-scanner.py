@@ -18,10 +18,6 @@ def portScan(port):
     except:
         return False
 
-def fill_queue_with_range(from_port, to_port):
-    for port in range(from_port, to_port):
-        queue.put(port)
-
 def fill_queue_with_list(port_list):
     for port in port_list:
         queue.put(port)
