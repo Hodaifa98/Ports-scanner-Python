@@ -19,7 +19,7 @@ def portScan(port):
     except:
         return False
 
-def fill_queue_with_list(port_list):
+def fillQueueWithList(port_list):
     for port in port_list:
         queue.put(port)
 
@@ -30,10 +30,9 @@ def worker():
             print(F"Port: {port} is open.")
             open_ports.append(port)
 
-
 if __name__ == "__main__":
     port_list = range(1, 3320)
-    fill_queue_with_list(port_list)
+    fillQueueWithList(port_list)
 
     thread_list = []
 
