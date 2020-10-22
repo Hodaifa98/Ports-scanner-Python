@@ -1,4 +1,4 @@
-# A multi-threaded, fast ports scanner in Python
+# A multi-threaded and fast ports scanner in Python
 
 This program can be used to find and expose open ports, which can help debug an issue or secure a network, server, computer...
 
@@ -6,6 +6,7 @@ It scans both TCP and UDP ports, and uses multi-threading to quickly scan over t
 
 This program is multi-threaded because that way it can scan a large number of ports in a short period, and it uses the Queue data type to store ports because it's the preferred way to communicate data between threads.
 
+Note: You can change the number of threads used to scan the ports. The default is "500".
 
 ## Usage:
 ```python ports-scanner.py```
