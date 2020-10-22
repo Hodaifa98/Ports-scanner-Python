@@ -1,3 +1,3 @@
-#A multi-threaded, fast port scanner in Python
+# A multi-threaded, fast port scanner in Python
 
 This program can be used to find open ports, and help secure a network, server, computer...
