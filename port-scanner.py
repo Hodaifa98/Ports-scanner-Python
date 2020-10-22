@@ -6,15 +6,15 @@ from queue import Queue
 
 #Final global variables.
 TARGET = "localhost"
-MAX_NUMBER_PORTS = 65535
+MAX_PORTS = 65535
 NUMBER_OF_THREADS = 500
 #Global variables.
 ports_queue = Queue()
 open_ports = []
 
 #fillQueueWithList.
-def fillPortsQueueWithList(port_list):
-    for port in port_list:
+def fillPortsQueueWithList(ports_list):
+    for port in ports_list:
         ports_queue.put(port)
 
 #portScan.
@@ -51,24 +51,55 @@ def worker():
 
 #main.
 if __name__ == "__main__":
-    port_list = range(1, 5000)
-    fillPortsQueueWithList(port_list)
+    print("This program scan for open ports and display their service names if available.")
+    
+    #Read the user input.
+    try:
+        #Read the starting port.
+        print(f"Enter the starting port to scan from (1 <= port < {MAX_PORTS}) or leave empty to start with '1': ")
+        from_port = input()
+        if str.isdigit(from_port):
+            from_port = int(from_port)
+            if(from_port < 1 or from_port > MAX_PORTS):
+                from_port = 1
+        else:
+            from_port = 1
+        #Read the end port.
+        print(f"Enter the end port to scan to (from_port < port <= {MAX_PORTS}) or leave empty to scan until '{MAX_PORTS}': ")
+        to_port = input()
+        if str.isdigit(to_port):
+            to_port = int(to_port)
+            if(to_port <= from_port or to_port > MAX_PORTS):
+                to_port = MAX_PORTS
+        else:
+            to_port = MAX_PORTS
+    except:
+        pass
+
+    #Fill the ports list.
+    ports_list = range(from_port, to_port)
+
+    #Fill the ports queue with the port numbers supplied by the user.
+    fillPortsQueueWithList(ports_list)
 
     #Initiate a thread list that we will store all the threads used in this program.
-    thread_list = []
+    threads_list = []
 
     #Loop through the pre-defined number of threads.
     for t in range(NUMBER_OF_THREADS):
         #Initiate a thread that will handle checking for open ports.
         thread = threading.Thread(target=worker)
-        thread_list.append(thread)
+        threads_list.append(thread)
 
     #Start all threads.
-    for thread in thread_list:
+    for thread in threads_list:
         thread.start()
 
     #Loop through the threads and wait for them to be finished before the open parts are displayed.
-    for thread in thread_list:
+    for thread in threads_list:
         thread.join()
 
-    print("\nThe open ports are: ", open_ports)
+    if len(open_ports) != 0:
+        print(f"\nThe open ports from '{from_port}' to '{to_port}' are:\n", open_ports)
+    else:
+        print(f"\nThere are no open ports from '{from_port}' to '{to_port}'.")
