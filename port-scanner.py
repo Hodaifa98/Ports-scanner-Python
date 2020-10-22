@@ -27,7 +27,11 @@ def worker():
     while not queue.empty():
         port = queue.get()
         if portScan(port):
-            print(F"Port: {port} is open.")
+            try:
+                port_name = socket.getservbyport(port)
+            except:
+                port_name = "UNDEFINED"
+            print(F"Port: {port} is open. Service: {port_name}")
             open_ports.append(port)
 
 if __name__ == "__main__":
