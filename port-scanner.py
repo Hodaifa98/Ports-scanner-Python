@@ -44,7 +44,8 @@ def worker():
                 port_name = socket.getservbyport(port)
             except:
                 port_name = "UNKNOWN"
-            print(F"Port: {port} is open. Service: {port_name}.")
+            #Display the open port, and its service name.
+            print(F"Port: {port} is open - Service: {port_name}.")
             open_ports.append(port)
 
 
