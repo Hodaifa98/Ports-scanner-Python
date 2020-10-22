@@ -1,7 +1,11 @@
 #Import required modules.
 import socket
+import threading
+from queue import Queue
 
 target = "localhost"
+queue = Queue()
+open_ports = []
 
 def portScan(port):
     try:
@@ -14,9 +18,11 @@ def portScan(port):
     except:
         return False
 
-for port in range(1, 1024):
-    is_open = portScan(port)
-    if is_open:
-        print("Port: {} is open.".format(port))
-    else:
-        print("Port: {} is closed.".format(port))
+def fill_queue_with_range(from_port, to_port):
+    for port in range(from_port, to_port):
+        queue.put(port)
+
+def fill_queue_with_list(port_list):
+    for port in port_list:
+        queue.put(port)
+
