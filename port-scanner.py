@@ -30,7 +30,7 @@ def worker():
             try:
                 port_name = socket.getservbyport(port)
             except:
-                port_name = "UNDEFINED"
+                port_name = "UNKNOWN"
             print(F"Port: {port} is open. Service: {port_name}")
             open_ports.append(port)
 
