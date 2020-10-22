@@ -51,7 +51,7 @@ def worker():
 
 #main.
 if __name__ == "__main__":
-    print("This program scan for open ports and display their service names if available.")
+    print("This program scan for open ports and display their respective service names if available.")
     
     #Read the user input.
     try:
