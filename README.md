@@ -10,3 +10,6 @@ Note: You can change the number of threads used to scan the ports. The default i
 
 ## Usage:
 ```python ports-scanner.py```
+
+#### Warning:
+I'm not responsible or legally liable for any use of this program. Execute it only on machines/networks you own or have permission to. Otherwise, this is purely for educational purposes.
